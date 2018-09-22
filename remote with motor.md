@@ -10,49 +10,58 @@ const int vrp = 11;
 
 float s;
 
-void bw() {
-  digitalWrite(4, HIGH);
-  digitalWrite(8, LOW);
-  analogWrite(10, s);
-  digitalWrite(6, LOW);
-  digitalWrite(7, HIGH);
-  analogWrite(5, s);
-  Serial.println("bw");
-}
-void fw() {
+void rmfor() { //right motor forward
   digitalWrite(8, HIGH);
   digitalWrite(4, LOW);
   analogWrite(10, s);
-  digitalWrite(7, LOW);
-  digitalWrite(6, HIGH);
-  analogWrite(5, s);
-  Serial.println("fw");
 }
-void tright() {
-  digitalWrite(6, LOW);
-  digitalWrite(7, HIGH);
-  analogWrite(5, s);
-  digitalWrite(8, HIGH);
-  digitalWrite(4, LOW);
-  analogWrite(10, s);
-  Serial.println("tr");
-}
-void tleft() {
+void rmrev() {  //right motor reverse
   digitalWrite(4, HIGH);
   digitalWrite(8, LOW);
   analogWrite(10, s);
-  digitalWrite(7, LOW);
-  digitalWrite(6, HIGH);
-  analogWrite(5, s);
-  Serial.println("tl");
 }
-void mstop() {
+void rmstop() { //right motor stop
   digitalWrite(4, LOW);
   digitalWrite(8, LOW);
   analogWrite(10, 0);
+}
+
+void lmfor() {  //left motor forward
   digitalWrite(7, LOW);
+  digitalWrite(6, HIGH);
+  analogWrite(5, s);
+}
+void lmrev() { //left motor reverse
   digitalWrite(6, LOW);
+  digitalWrite(7, HIGH);
+  analogWrite(5, s);
+}
+void lmstop() {
+  digitalWrite(6, LOW);
+  digitalWrite(7, LOW);
   analogWrite(5, 0);
+}
+void forward() {//vehicle forward
+  rmfor();
+  lmfor();
+}
+void reverse() {//vehicle reverse
+  rmrev();
+  lmrev();
+}
+void right() {//right turn
+  lmfor();
+  rmrev();
+  Serial.println("tr");
+}
+void left() {//left turn
+  rmfor();
+  lmrev();
+  Serial.println("tl");
+}
+void mstop() {
+  rmstop();
+  lmstop();
   Serial.println("stop");
 }
 void setup() {
